@@ -3,7 +3,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 public class Rabin {
-    private static Random r = new SecureRandom();
+    private static Random SR = new SecureRandom();
     private static BigInteger TWO = BigInteger.valueOf(2);
     private static BigInteger THREE = BigInteger.valueOf(3);
     private static BigInteger FOUR = BigInteger.valueOf(4);
@@ -90,7 +90,7 @@ public class Rabin {
     public static BigInteger blumPrime(int bitLength) {
         BigInteger p;
         do {
-            p=BigInteger.probablePrime(bitLength,r);
+            p=BigInteger.probablePrime(bitLength, SR);
         }
         while(!p.mod(FOUR).equals(THREE));
         return p;

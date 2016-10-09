@@ -27,7 +27,7 @@ public class RabinTest {
         System.out.println("Private keys -> q: " + q);
         System.out.println("Public key -> N: " + N);
         System.out.println("Original Text: " + originalText);
-        System.out.println("Encrypted Text: " + decryptedText);
+        System.out.println("Encrypted Text: " + cipherText);
         System.out.println("Results:");
         System.out.println("----------------------------");
         decryptedText.forEach( d -> {

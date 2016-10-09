@@ -10,7 +10,7 @@ public class RabinChosenPlainTextAttack {
 
     private static Set<BigInteger> cipheredMessages = new HashSet<>();
     private static String choosenText = "Hello world!";
-    private static Long attempts = 10000L;
+    private static Long attempts = 1000L;
     public static void main(String[] args) throws UnsupportedEncodingException {
 
         System.out.println("Choosen Text: " + choosenText);
