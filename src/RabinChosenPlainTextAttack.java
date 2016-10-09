@@ -32,18 +32,6 @@ public class RabinChosenPlainTextAttack {
             }
 
             cipheredMessages.add(cipherText);
-
-
-            //            System.out.println("For ->");
-            //            System.out.println("Private keys -> p: " + p);
-            //            System.out.println("Private keys -> q: " + q);
-            //            System.out.println("Public key -> N: " + N);
-            //            System.out.println("Encrypted Text: " + decryptedText);
-            //            System.out.println("Results:");
-            //            System.out.println("----------------------------");
-            //            decryptedText.forEach( d -> {
-            //                System.out.println("Decrypted Text: " + d);
-            //            });
         }
 
         if (cipheredMessages.size() == 1) {
