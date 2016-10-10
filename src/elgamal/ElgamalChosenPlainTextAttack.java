@@ -1,37 +1,44 @@
+package elgamal;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class RabinChosenPlainTextAttack {
+public class ElgamalChosenPlainTextAttack {
 
     private static Set<BigInteger> cipheredMessages = new HashSet<>();
     private static String choosenText = "Hello world!";
     private static Long attempts = 30L;
+    
+    @SuppressWarnings("unused")
     public static void main(String[] args) throws UnsupportedEncodingException {
 
         System.out.println("Choosen Text: " + choosenText);
 
         for (int i = 0; i < attempts; i++) {
-            List<String> decryptedText = new ArrayList<>(); // four possibilities
-
-            BigInteger[] key = Rabin.genKey(3072);
-            BigInteger N = key[0];
-            BigInteger p = key[1]; // private key
-            BigInteger q = key[2]; // private key
-
-            BigInteger message = new BigInteger(choosenText.getBytes(Charset.forName("ascii")));
-            BigInteger cipherText = Rabin.encrypt(message, N);
-
-            BigInteger[] decryptedMessage = Rabin.decrypt(cipherText, p, q);
-            for(BigInteger factors: decryptedMessage) {
-                decryptedText.add(new String(factors.toByteArray(), Charset.forName("ascii")));
+            BigInteger secretKey = null;
+            if (args.length > 1) {
+                secretKey =  new BigInteger(args[0]);
+            } else {
+                secretKey =  new BigInteger("1234567890"); // TODO: choose better default key
             }
 
-            cipheredMessages.add(cipherText);
+            BigInteger[] key = Elgamal.genKey(secretKey, 3072);
+            BigInteger p = key[0];
+            BigInteger b = key[1];
+            BigInteger c = key[2];
+
+            BigInteger message = new BigInteger(choosenText.getBytes(Charset.forName("ascii")));
+            BigInteger[] cipherText = Elgamal.encrypt(message, c, b, p, 3072);
+
+            BigInteger EC = cipherText[0];
+            BigInteger h = cipherText[1];
+            
+            BigInteger decryptedMessage = Elgamal.decrypt(EC, h, secretKey, p);
+            String decryptedText = new String(decryptedMessage.toByteArray(), Charset.forName("ascii"));
+
+            cipheredMessages.add(EC);
         }
 
         if (cipheredMessages.size() == 1) {
