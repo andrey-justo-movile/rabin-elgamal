@@ -1,6 +1,9 @@
+package rabin;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Random;
+
+import utils.BigIntegerUtils;
 
 public class Rabin {
     private static Random SR = new SecureRandom();
