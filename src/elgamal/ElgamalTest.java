@@ -31,8 +31,8 @@ public class ElgamalTest {
         decryptedText = new String(decryptedMessage.toByteArray(), Charset.forName("ascii"));
 
         System.out.println("For ->");
-        System.out.println("Private keys -> p: " + p);
-        System.out.println("Private keys -> q: " + b);
+        System.out.println("Public keys -> p: " + p);
+        System.out.println("Public keys -> q: " + b);
         System.out.println("Public key -> N: " + c);
         System.out.println("Original Text: " + originalText);
         System.out.println("Encrypted Text: " + EC);

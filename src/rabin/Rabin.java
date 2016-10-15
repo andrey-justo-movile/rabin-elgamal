@@ -16,9 +16,9 @@ public class Rabin {
      * @param bitLength Number of bits in public key
      * @return An array of BigIntegers {N,p,q}. N is the public key and p and q are the private keys
      */
-    public static BigInteger[] genKey(int bitLength) {
-        BigInteger p = blumPrime(bitLength/2);
-        BigInteger q = blumPrime(bitLength/2);
+    public static BigInteger[] genKey(int length) {
+        BigInteger p = blumPrime(length/2);
+        BigInteger q = blumPrime(length/2);
         BigInteger N = p.multiply(q);
         return new BigInteger[]{N,p,q};
     }
@@ -90,10 +90,10 @@ public class Rabin {
      * @param bitLength number of bits in the prime
      * @return a random blum prime
      */
-    public static BigInteger blumPrime(int bitLength) {
+    public static BigInteger blumPrime(int length) {
         BigInteger p;
         do {
-            p=BigInteger.probablePrime(bitLength, SR);
+            p=BigInteger.probablePrime(length, SR);
         }
         while(!p.mod(FOUR).equals(THREE));
         return p;
