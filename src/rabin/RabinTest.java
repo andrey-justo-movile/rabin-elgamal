@@ -7,7 +7,7 @@ import java.util.List;
 
 public class RabinTest {
     public static void main(String[] args) throws UnsupportedEncodingException {
-        String originalText = "Hello world!";
+        String originalText = "Hello World!!!";
         List<String> decryptedText = new ArrayList<>(); // four possibilities
         
         BigInteger[] key = Rabin.genKey(3072);

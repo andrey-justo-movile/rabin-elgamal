@@ -80,8 +80,7 @@ public class Rabin {
             t = old_t.subtract(q.multiply(t));
             old_t=tt;
         }
-        //gcd, x,y
-        //x,y such that ax+by=gcd(a,b)
+
         return new BigInteger[]{old_r, old_s, old_t};
     }
 
