@@ -9,7 +9,7 @@ public class Elgamal {
 
     public static BigInteger[] genKey(BigInteger secretKey, int length) {
         BigInteger p = BigInteger.probablePrime(length, SR);
-        BigInteger b = new BigInteger("3"); // TODO: check it
+        BigInteger b = generateGroup(p, length);
         BigInteger c = b.modPow(secretKey, p);
         return new BigInteger[]{p,b,c};
     }
@@ -26,6 +26,15 @@ public class Elgamal {
         BigInteger c = h.modPow(secretKey, p);
         BigInteger d = c.modInverse(p);
         return d.multiply(EC).mod(p);
+    }
+    
+    public static BigInteger generateGroup(BigInteger p, int length) {
+        BigInteger g = null;
+        do {
+            g = BigInteger.probablePrime(length, SR);
+        } while(g == null || p.subtract(g).signum() != 1);
+            
+        return g;
     }
 
 }

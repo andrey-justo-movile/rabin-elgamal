@@ -14,7 +14,7 @@ public class RabinElgamal {
 
     public static BigInteger[] genKey(BigInteger secretKey, int length) {
         BigInteger p = BigInteger.probablePrime(length, SR);
-        BigInteger b = new BigInteger("3"); // TODO: check it
+        BigInteger b = generateGroup(p, length);
         BigInteger c = b.modPow(secretKey, p);
         
         BigInteger[] rabinKeys = Rabin.genKey(length * 2);
@@ -26,7 +26,7 @@ public class RabinElgamal {
         BigInteger r = new BigInteger(length, SR);
         BigInteger EC = message.multiply(c.modPow(r, p)).mod(p);
         BigInteger h = b.modPow(r, p);
-        System.out.println(h);
+
         return new BigInteger[]{EC, Rabin.encrypt(h, N)};
     }
 
@@ -35,13 +35,21 @@ public class RabinElgamal {
         
         List<BigInteger> decrypts = new ArrayList<>();
         for (BigInteger possibleDecryptedRabin: rabinDecrypts) {
-            System.out.println(possibleDecryptedRabin);
             BigInteger c = possibleDecryptedRabin.modPow(secretKey, p);
             BigInteger d = c.modInverse(p);
             decrypts.add(d.multiply(EC).mod(p));
         }
         
         return decrypts.toArray(new BigInteger[4]);
+    }
+    
+    public static BigInteger generateGroup(BigInteger p, int length) {
+        BigInteger g = null;
+        do {
+            g = BigInteger.probablePrime(length, SR);
+        } while(g == null || p.subtract(g).signum() != 1);
+            
+        return g;
     }
     
 }
