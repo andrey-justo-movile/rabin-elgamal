@@ -15,8 +15,8 @@ public class Elgamal {
     }
 
     public static BigInteger[] encrypt(BigInteger message, BigInteger c, BigInteger b, BigInteger p, int length) {
-        BigInteger r = new BigInteger(length, SR);
-        BigInteger EC = message.multiply(c.modPow(r, p)).mod(p);
+        BigInteger r = new BigInteger(length, SR).mod(b);
+        BigInteger EC = message.multiply(c.modPow(r, p));
         BigInteger h = b.modPow(r, p);
 
         return new BigInteger[]{EC, h};
