@@ -11,35 +11,17 @@ public class Rabin {
     private static BigInteger THREE = BigInteger.valueOf(3);
     private static BigInteger FOUR = BigInteger.valueOf(4);
 
-    /**
-     * Generate a blum public and private key (more efficient decryption) with a specified number of bits
-     * @param bitLength Number of bits in public key
-     * @return An array of BigIntegers {N,p,q}. N is the public key and p and q are the private keys
-     */
     public static BigInteger[] genKey(int length) {
-        BigInteger p = blumPrime(length/2);
-        BigInteger q = blumPrime(length/2);
+        BigInteger p = chinesePrime(length/2);
+        BigInteger q = chinesePrime(length/2);
         BigInteger N = p.multiply(q);
         return new BigInteger[]{N,p,q};
     }
 
-    /**
-     * Encrypt a value with the public key
-     * @param m the value to encrypt
-     * @param N the public key, N
-     * @return c, the encrypted value
-     */
     public static BigInteger encrypt(BigInteger m, BigInteger N) {
         return m.modPow(TWO, N);
     }
 
-    /**
-     * Decrypt a value with the private key (assumes blum key for fast decryption)
-     * @param c encrypted number
-     * @param p private key, p
-     * @param q private key, q
-     * @return array of the 4 decryption possibilities
-     */
     public static BigInteger[] decrypt(BigInteger c, BigInteger p , BigInteger q) {
         BigInteger N = p.multiply(q);
 
@@ -84,12 +66,7 @@ public class Rabin {
         return new BigInteger[]{old_r, old_s, old_t};
     }
 
-    /**
-     * Generate a random blum prime ( a prime such that p≡3 (mod 4) )
-     * @param bitLength number of bits in the prime
-     * @return a random blum prime
-     */
-    public static BigInteger blumPrime(int length) {
+    public static BigInteger chinesePrime(int length) {
         BigInteger p;
         do {
             p=BigInteger.probablePrime(length, SR);
