@@ -30,6 +30,7 @@ public class RabinChosenPlainTextAttack {
             BigInteger[] decryptedMessage = Rabin.decrypt(cipherText, p, q);
             for(BigInteger factors: decryptedMessage) {
                 decryptedText.add(new String(factors.toByteArray(), Charset.forName("ascii")));
+                System.out.println(new String(factors.toByteArray(), Charset.forName("ascii")));
             }
 
             cipheredMessages.add(cipherText);

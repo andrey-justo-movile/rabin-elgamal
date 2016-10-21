@@ -40,7 +40,7 @@ public class RabinElgamal {
             decrypts.add(d.multiply(EC).mod(p));
         }
         
-        return decrypts.toArray(new BigInteger[4]);
+        return decrypts.toArray(new BigInteger[1]);
     }
     
     public static BigInteger generateGroup(BigInteger p, int length) {

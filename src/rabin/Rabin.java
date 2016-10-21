@@ -26,18 +26,14 @@ public class Rabin {
         BigInteger N = p.multiply(q);
 
         BigInteger m_p = BigIntegerUtils.sqrt(c).mod(p);
-        BigInteger m_q = BigIntegerUtils.sqrt(c).mod(q);
-
+        
         BigInteger[] ext = ext_gcd(p,q);
         BigInteger y_p = ext[1];
         BigInteger y_q = ext[2];
 
         BigInteger r = y_p.multiply(p).multiply(m_p).add(y_q.multiply(q).multiply(m_p)).mod(N);
-        BigInteger minusR = N.subtract(r);
-        BigInteger s = y_p.multiply(p).multiply(m_q).subtract(y_q.multiply(q).multiply(m_q)).mod(N);
-        BigInteger minusS = N.subtract(s);
 
-        return new BigInteger[]{r,minusR,s,minusS};
+        return new BigInteger[]{r};
     }
 
 
